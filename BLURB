@@ -1,0 +1,25 @@
+granolam.erl - GraNoLa/M interpreter in Erlang
+----------------------------------------------
+
+GraNoLa/M is a programming language in which the directed graph is the
+only data type.  See granolam.txt for a more complete description of the
+GraNoLa/M language.  granolam.erl is an interpreter for this language.
+
+You need an Erlang compiler at least at language version 4.4 to compile
+granola.erl.  This program was developed with OTP/R8B, so that is the
+recommended platform for using it.  R8B can be obtained from:
+
+  http://www.erlang.org/download.html
+
+Usage:
+
+  erlc granolam.erl
+  erl -noshell -run granolam shell
+
+Or, to run the built-in tests:
+
+  erl
+  granolam:test(N).           (where N is 1-7)
+
+The contents of the files in this archive BLURB, granolam.txt and
+granolam.erl are parts of the public domain.
