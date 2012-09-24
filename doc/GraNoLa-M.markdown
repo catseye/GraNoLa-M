@@ -1,5 +1,5 @@
 GraNoLa/M - Graph Node Language Mark "M"
-----------------------------------------
+========================================
 
 Introduction
 ------------
@@ -37,7 +37,7 @@ Syntax
 The following EBNF exemplifies the simplicity of the grammar for this
 data type:
 
-  Graph ::= "^" ExtantName | NewName ["=" Graph] "(" {Graph} ")".
+    Graph ::= "^" ExtantName | NewName ["=" Graph] "(" {Graph} ")".
 
 That is, the syntactic representation of a graph starts with either a
 caret followed by an existing label in the graph, or it starts with a
@@ -47,12 +47,12 @@ to), and a close paren.
 
 So, some example GraNoLa/M graphs are:
 
-  a(b(^a)c(^a)d(^a)e(^a))
-  a(b(c(d(e(^a)))))
-  a=a()(b=a(b())(^a))
-  a=b=c=d=e()()()()(^a)
-  ^potrzebie
-  a=^#potrzebie(b=^uwaming(^a))
+    a(b(^a)c(^a)d(^a)e(^a))
+    a(b(c(d(e(^a)))))
+    a=a()(b=a(b())(^a))
+    a=b=c=d=e()()()()(^a)
+    ^potrzebie
+    a=^#potrzebie(b=^uwaming(^a))
 
 Semantics
 ---------
@@ -83,13 +83,13 @@ Embedded graphs within a program graph can be thought of as subprograms
 or data, depending on whether they are executed or not.
 
 Execution of a graph begins at the outermost (first defined) node. (That
-would be node 'a' in most of the examples given above.)
+would be node `a` in most of the examples given above.)
 
 At each node, if there is an embedded graph, it is executed (in its own
 context - it uses the same stack but it has it's own set of labels.)
 
 When a nub is embedded in a node, it specifies an operation to perform
-when executed, as in the case of the example "b=^uwaming(...)" above.
+when executed, as in the case of the example `b=^uwaming(...)` above.
 
 Execution then passes to another node.  An edge is picked by the
 traversal method (random, first, or last) and the node at the other end
