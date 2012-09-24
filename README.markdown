@@ -12,7 +12,7 @@ This distribution also contains an interpreter for GraNoLa/M written in
 Erlang, as `granolam.erl` in the `src` directory.
 
 You need an Erlang compiler at least at language version 4.4 to compile
-granola.erl.  This program was developed with OTP/R8B, so that is the
+`granolam.erl`.  This program was developed with OTP/R8B, so that is the
 recommended platform for using it, although more recent versions should
 work as well.
 
@@ -25,4 +25,4 @@ To run the built-in test cases, start an Erlang shell and run
 
     granolam:test(N).
 
-where N is an integer from 1 to 7.
+where _N_ is an integer from 1 to 7.
