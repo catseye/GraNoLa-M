@@ -1,3 +1,4 @@
 syntax: glob
 
 *.beam
+erl_crash.dump

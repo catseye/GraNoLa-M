@@ -6,7 +6,7 @@ Introduction
 
 GraNoLa/M is a programming language that owes much of its heritage to
 Tamerlane and Q-BAL, but hints of BASIC, LISP, FORTH, SETL, Muriel, and
-Aardappel can be detected in faint outline.  It widely believed to be a
+Aardappel can be detected in faint outline.  It is widely believed to be a
 subset of a much larger, PL/I-like language called 'GraNoLa/88800'.
 
 Data Types
@@ -58,7 +58,7 @@ Semantics
 ---------
 
 All GraNoLa/M operations work on graphs.  Actually they work on an
-internal stack of graphs - actually the stack is nothing more than a
+internal stack of graphs — actually the stack is nothing more than a
 graph, but to avoid (and cause) confusion, we will call it a stack,
 because mainly we are concerned with putting things into it and getting
 things off of it.
@@ -101,21 +101,48 @@ there is one.)
 Operations
 ----------
 
-* #label - push a nub onto the stack
-* 0label - push an empty graph (node) onto the stack
-* 1label - copy node with label from program onto stack
-* @label - set the cursor to label
-* whebong - push current (sub)program onto stack
-* duronilt - pop graph and replace current (sub)program with it
-* chehy - pop graph off of stack and use it as new stack
-* taug - push stack onto stack embedded into a new node
-* soduv - pop a graph, set execution order to first if it is empty, last if not
-* rehohur - pop and discard graph
-* bimodang - pop label and jump to it as subroutine in current program graph
-* ubewic - return from current subroutine (jump back to last bimodang)
-* chuwakagathaz - switch to nondeterministic execution order (default)
-* sajalom - deterministic execution order - use first edge
-* grangnum - deterministic execution order - use last edge 
-* uwaming - pop a graph off the stack and print it
-* bejadoz - input a graph (in GraNoLa/M syntax) and push it on the stack
+*   `#`label - push a nub onto the stack
+*   `0`label - push an empty graph (node) onto the stack
+*   `1`label - copy node with label from program onto stack
+*   `@`label - set the cursor to label
+*   `whebong` - push current (sub)program onto stack
+*   `duronilt` - pop graph and replace current (sub)program with it
+*   `chehy` - pop graph off of stack and use it as new stack
+*   `taug` - push stack onto stack embedded into a new node
+*   `soduv` - pop a graph, set execution order to first if it is empty, last if not
+*   `rehohur` - pop and discard graph
+*   `bimodang` - pop label and jump to it as subroutine in current program graph
+*   `ubewic` - return from current subroutine (jump back to last bimodang)
+*   `chuwakagathaz` - switch to nondeterministic execution order (default)
+*   `sajalom` - deterministic execution order - use first edge
+*   `grangnum` - deterministic execution order - use last edge 
+*   `uwaming` - pop a graph off the stack and print it
+*   `bejadoz` - input a graph (in GraNoLa/M syntax) and push it on the stack
 
+Tests
+
+    -> Functionality "Interpret GraNoLa/M Program" is implemented by
+    -> shell command "bin/granolam %(test-body-file)"
+
+    -> Tests for functionality "Interpret GraNoLa/M Program"
+
+    | a=^#cthulhu(b=^uwaming(^a))
+    = ??
+
+    | a=^whebong(b=^uwaming(^a))
+    = ??
+
+    | a=^0hello(b=^@hello(c=^taug(d=^uwaming(^a))))
+    = ??
+
+    | a=^1hello(b=^uwaming(end=() hello=(world())))
+    = ??
+
+    | a=^sajalom(b=^#d(c=^bimodang(^a))
+    = ??
+
+    | d(e=^#sakura(f=^uwaming(g=^ubewic()))))
+    = ??
+
+    | a=^sajalom(b=^bejadoz(c=^soduv(^a d())))
+    = ??
