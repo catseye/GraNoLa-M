@@ -1,6 +1,3 @@
-#!/usr/bin/env escript
-%% -*- erlang -*-
-
 -module(granolam).
 -vsn('2002.0314').  % This work is a part of the public domain.
 
@@ -118,4 +115,4 @@ shell().
 %% Script Interface ------------------------------------------------------
 
 main([N]) ->
-  {ok, b} = file:read_file(N),run(binary_to_list(b)).
+  {ok,B} = file:read_file(N),run(binary_to_list(B)).

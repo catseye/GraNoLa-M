@@ -1,0 +1,4 @@
+#!/bin/sh
+
+THIS=`realpath $0`
+escript `dirname $THIS`/../src/granolam.erl $*

@@ -14,12 +14,16 @@ Erlang, as `granolam.erl` in the `src` directory.
 You need an Erlang compiler at least at language version 4.4 to compile
 `granolam.erl`.  This program was developed with OTP/R8B, so that is the
 recommended platform for using it, although more recent versions should
-work as well.
+work as well.  (It has recently been tested with R17.)
 
 To build the `granolam` module, run the script `make.sh`.
 
-After the module is built, run the script `granolam` in the `bin` directory
-to start a GraNoLa/M shell.
+After the module is built, run the script `granolam_shell` in the `bin`
+directory to start a GraNoLa/M shell.
+
+Or you can run `bin/granolam` _filename_ to run a GraNoLa/M program
+written in a text file on the filesystem.  This uses `escript`, so you
+don't have to build the module first.  But you need `realpath`.
 
 To run the built-in test cases, start an Erlang shell and run
 
