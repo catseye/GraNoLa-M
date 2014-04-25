@@ -1,7 +1,12 @@
+#!/usr/bin/env escript
+%% -*- erlang -*-
+
 -module(granolam).
 -vsn('2002.0314').  % This work is a part of the public domain.
 
--export([parse/1, interpret/1, run/1, test/1, shell/0]).
+-compile([nowarn_unused_vars]).
+
+-export([parse/1, interpret/1, run/1, test/1, shell/0, main/1]).
 
 -define(g0(X),X++S)->" "++X++" "++sub(S).
 -define(g1(X),X|R0])->{Q,R1}=).
@@ -35,7 +40,7 @@ interpret(N, P,?y,M)->
   case find(N,P) of
     {N,nil,L} ->
       interpret(pick(L,M),P,?y,M);
-    {N,V,L} when atom(V)->
+    {N,V,L} when is_atom(V)->
       {N0,P0,S0,C0,CS0,M0} = do(N,V,P,?y,M),
       {N1,V1,L1}=find(N0,P0),
       case N0 of
@@ -89,7 +94,7 @@ find(N,_)->false. replace(N,[],G)->[];replace(N,[H|T],G)->[replace(N,H,G)|
 replace(N,T,G)];replace(N,{N,S,L}=P,G)->G;replace(N,{O,S,L},G)->replace(N,L,G);
 replace(N,V,G)->V. push(C,S,G)->{N,D,L}=find(C,S),replace(C,S,{N,D,[G|L]}). pop
 (C, S)->case find(C,S) of{N,D,[]}->{S,nil};{N,D,[H|T]}->{replace(C,S,{N,D,T}),
-H}end. format([])->"";format(A) when atom(A)->"^"++atom_to_list(A);format([H|T])
+H}end. format([])->"";format(A) when is_atom(A)->"^"++atom_to_list(A);format([H|T])
 ->format(H)++format(T);format({N,nil,L})->io_lib:format("~w(~s)",[N,format(L)])
 ;format({N,V,L})->io_lib:format("~w=~s(~s)",[N,format(V),format(L)]);format(_)
 
@@ -109,3 +114,8 @@ test(7)->run("a=^sajalom(b=^bejadoz(c=^soduv(^a d())))");
 test(_)->unknown_test.
 shell()->{?y}=interpret(input()),io:fwrite("~s@~w~n",[format(S),C]),
 shell().
+
+%% Script Interface ------------------------------------------------------
+
+main([N]) ->
+  {ok, b} = file:read_file(N),run(binary_to_list(b)).
