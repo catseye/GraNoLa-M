@@ -104,7 +104,7 @@ run(S)->interpret(parse(S)).
 test(1)->run("a=^#cthulhu(b=^uwaming(^a))");
 test(2)->run("a=^whebong(b=^uwaming(^a))");
 test(4)->run("a=^0hello(b=^@hello(c=^taug(d=^uwaming(^a))))");
-test(5)->run("a=^1hello(b=^uwaming(end=() hello=(world())))");
+test(5)->run("a=^1hello(b=^uwaming(end() hello(world())))");
 test(6)->run("a=^sajalom(b=^#d(c=^bimodang(^a))"
              "d(e=^#sakura(f=^uwaming(g=^ubewic()))))");
 test(7)->run("a=^sajalom(b=^bejadoz(c=^soduv(^a d())))");
@@ -114,5 +114,7 @@ shell().
 
 %% Script Interface ------------------------------------------------------
 
-main([N]) ->
-  {ok,B} = file:read_file(N),run(binary_to_list(B)).
+main(["run",N]) ->
+  {ok,B} = file:read_file(N),run(binary_to_list(B)),io:fwrite("\n");
+main(["parse",N]) ->
+  {ok,B} = file:read_file(N),io:fwrite("~w\n",[parse(binary_to_list(B))]).

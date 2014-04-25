@@ -37,7 +37,8 @@ Syntax
 The following EBNF exemplifies the simplicity of the grammar for this
 data type:
 
-    Graph ::= "^" ExtantName | NewName ["=" Graph] "(" {Graph} ")".
+    Graph ::= "^" ExtantName
+            | NewName ["=" Graph] "(" {Graph} ")".
 
 That is, the syntactic representation of a graph starts with either a
 caret followed by an existing label in the graph, or it starts with a
@@ -122,12 +123,64 @@ Operations
 Tests
 -----
 
+    -> Functionality "Parse GraNoLa/M Program" is implemented by
+    -> shell command "bin/granolam parse %(test-body-file)"
+
     -> Functionality "Interpret GraNoLa/M Program" is implemented by
-    -> shell command "bin/granolam %(test-body-file) | head --bytes=60"
+    -> shell command "bin/granolam run %(test-body-file)"
 
-    -> Tests for functionality "Interpret GraNoLa/M Program"
+    -> Functionality "Interpret Endless GraNoLa/M Program" is implemented by
+    -> shell command "bin/granolam run %(test-body-file) | head --bytes=60"
 
-Here are some tests.  They all loop infinitely, so we only look at the
+    -> Tests for functionality "Parse GraNoLa/M Program"
+
+Just getting the syntax right.
+
+    | a(b(^a)c(^a)d(^a)e(^a))
+    = {a,nil,[{b,nil,[a]},{c,nil,[a]},{d,nil,[a]},{e,nil,[a]}]}
+
+    | a(b(c(d(e(^a)))))
+    = {a,nil,[{b,nil,[{c,nil,[{d,nil,[{e,nil,[a]}]}]}]}]}
+
+    | a=a()(b=a(b())(^a))
+    = {a,{a,nil,[]},[{b,{a,nil,[{b,nil,[]}]},[a]}]}
+
+    | a=b=c=d=e()()()()(^a)
+    = {a,{b,{c,{d,{e,nil,[]},[]},[]},[]},[a]}
+
+    | ^potrzebie
+    = potrzebie
+
+    | ^potrzebie()
+    = potrzebie
+
+    | a=^#potrzebie(b=^uwaming(^a))
+    = {a,'#potrzebie',[{b,uwaming,[a]}]}
+
+    | a=^#cthulhu(b=^uwaming(^a))
+    = {a,'#cthulhu',[{b,uwaming,[a]}]}
+
+    | a=^whebong(b=^uwaming(^a))
+    = {a,whebong,[{b,uwaming,[a]}]}
+
+    | a=^0hello(b=^@hello(c=^taug(d=^uwaming(^a))))
+    = {a,'0hello',[{b,'@hello',[{c,taug,[{d,uwaming,[a]}]}]}]}
+
+    | a=^1hello(b=^uwaming(end() hello(world())))
+    = {a,'1hello',[{b,uwaming,[{'end',nil,[]},{hello,nil,[{world,nil,[]}]}]}]}
+
+Doesn't parse.  Why not?  Must find out someday.
+
+    | a=^sajalom(b=^#d(c=^bimodang(^a))
+    |   d(e=^#sakura(f=^uwaming(g=^ubewic()))))
+    = ???
+
+    | a=^sajalom(b=^bejadoz(c=^soduv(^a d())))
+    = {a,sajalom,[{b,bejadoz,[{c,soduv,[a,{d,nil,[]}]}]}]}
+
+    -> Tests for functionality "Interpret Endless GraNoLa/M Program"
+
+Here are some tests.  These all loop infinitely, so we only look at the
 first 60 bytes of output.
 
     | a=^#cthulhu(b=^uwaming(^a))
@@ -139,4 +192,13 @@ first 60 bytes of output.
     | a=^0hello(b=^@hello(c=^taug(d=^uwaming(^a))))
     = embed=stack(hello())() embed=hello(hello())() embed=hello(he
 
+    -> Tests for functionality "Interpret GraNoLa/M Program"
+
+This one doesn't loop infinitely.  Note, there is a space after `world())`.
+
+    | a=^1hello(b=^uwaming(end() hello(world())))
+    = hello(world()) 
+
 The other tests in the suite in the code don't seem to work.  Pity.
+
+The last test in the suite may need user input.

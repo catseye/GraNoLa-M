@@ -21,7 +21,7 @@ To build the `granolam` module, run the script `make.sh`.
 After the module is built, run the script `granolam_shell` in the `bin`
 directory to start a GraNoLa/M shell.
 
-Or you can run `bin/granolam` _filename_ to run a GraNoLa/M program
+Or you can run `bin/granolam run` _filename_ to run a GraNoLa/M program
 written in a text file on the filesystem.  This uses `escript`, so you
 don't have to build the module first.  But you need `realpath`.
 
