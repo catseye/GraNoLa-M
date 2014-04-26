@@ -169,11 +169,8 @@ Just getting the syntax right.
     | a=^1hello(b=^uwaming(end() hello(world())))
     = {a,'1hello',[{b,uwaming,[{'end',nil,[]},{hello,nil,[{world,nil,[]}]}]}]}
 
-Doesn't parse.  Why not?  Must find out someday.
-
-    | a=^sajalom(b=^#d(c=^bimodang(^a))
-    |   d(e=^#sakura(f=^uwaming(g=^ubewic()))))
-    = ???
+    | a=^sajalom(b=^#d(c=^bimodang(^a))d(e=^#sakura(f=^uwaming(g=^ubewic()))))
+    = {a,sajalom,[{b,'#d',[{c,bimodang,[a]}]},{d,nil,[{e,'#sakura',[{f,uwaming,[{g,ubewic,[]}]}]}]}]}
 
     | a=^sajalom(b=^bejadoz(c=^soduv(^a d())))
     = {a,sajalom,[{b,bejadoz,[{c,soduv,[a,{d,nil,[]}]}]}]}
@@ -191,6 +188,9 @@ first 60 bytes of output.
 
     | a=^0hello(b=^@hello(c=^taug(d=^uwaming(^a))))
     = embed=stack(hello())() embed=hello(hello())() embed=hello(he
+
+    | a=^sajalom(b=^#d(c=^bimodang(^a))d(e=^#sakura(f=^uwaming(g=^ubewic()))))
+    = ^sakura ^sakura ^sakura ^sakura ^sakura ^sakura ^sakura ^sak
 
     -> Tests for functionality "Interpret GraNoLa/M Program"
 
