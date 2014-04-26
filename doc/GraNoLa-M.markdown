@@ -130,7 +130,7 @@ Tests
     -> shell command "bin/granolam run %(test-body-file)"
 
     -> Functionality "Interpret Endless GraNoLa/M Program" is implemented by
-    -> shell command "bin/granolam run %(test-body-file) | head --bytes=60"
+    -> shell command "bin/granolam run %(test-body-file) | head -c 60"
 
     -> Tests for functionality "Parse GraNoLa/M Program"
 
